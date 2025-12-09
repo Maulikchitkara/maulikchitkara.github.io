@@ -1,7 +1,432 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title> Maulik Chitkara </title>
-  </head>
-</html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-bottom: 2px solid white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* About Page */
+        .about-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .about-section h1 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Research Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .interest-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .interest-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .interest-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Projects Page */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-header h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-body {
+            padding: 1.5rem;
+        }
+
+        .project-body p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .project-link:hover {
+            border-bottom-color: #667eea;
+        }
+
+        /* Blog Page */
+        .blog-redirect {
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-redirect h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .blog-redirect p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .blog-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .blog-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            background: #2d3436;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav {
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            nav button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .about-section {
+                padding: 2rem;
+            }
+
+            .about-section h1 {
+                font-size: 2rem;
+            }
+
+            .interests-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">My Portfolio</div>
+            <nav>
+                <button class="nav-btn active" data-page="about">About</button>
+                <button class="nav-btn" data-page="research">Research</button>
+                <button class="nav-btn" data-page="projects">Projects</button>
+                <button class="nav-btn" data-page="blog">Blog</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- About Page -->
+        <div id="about" class="page active">
+            <div class="about-section">
+                <h1>Welcome!</h1>
+                <p>Hi, I'm a passionate researcher and developer interested in exploring innovative solutions to complex problems. This portfolio showcases my research interests, projects, and insights through my blog.</p>
+                <p>I believe in continuous learning and collaboration to drive meaningful impact in my field. Feel free to explore my work and get in touch!</p>
+            </div>
+        </div>
+
+        <!-- Research Interests Page -->
+        <div id="research" class="page">
+            <h1 style="color: white; margin-bottom: 2rem; text-align: center;">Research Interests</h1>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <h3>Machine Learning</h3>
+                    <p>Exploring advanced algorithms and neural networks to solve real-world problems through data-driven approaches.</p>
+                </div>
+                <div class="interest-card">
+                    <h3>Natural Language Processing</h3>
+                    <p>Developing systems that understand and process human language to enable better human-computer interactions.</p>
+                </div>
+                <div class="interest-card">
+                    <h3>Computer Vision</h3>
+                    <p>Researching visual recognition and image understanding techniques for practical applications.</p>
+                </div>
+                <div class="interest-card">
+                    <h3>Web Technology</h3>
+                    <p>Building scalable and responsive web applications using modern frameworks and best practices.</p>
+                </div>
+                <div class="interest-card">
+                    <h3>Cloud Computing</h3>
+                    <p>Designing and deploying distributed systems on cloud platforms for optimal performance and reliability.</p>
+                </div>
+                <div class="interest-card">
+                    <h3>Data Science</h3>
+                    <p>Analyzing large datasets to uncover insights and drive decision-making with statistical methods.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Page -->
+        <div id="projects" class="page">
+            <h1 style="color: white; margin-bottom: 2rem; text-align: center;">Projects</h1>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Project One</h3>
+                        <span class="project-tag">Machine Learning</span>
+                        <span class="project-tag">Python</span>
+                    </div>
+                    <div class="project-body">
+                        <p>Built a predictive model using TensorFlow to classify customer behavior patterns with 94% accuracy.</p>
+                        <a href="#" class="project-link">View Details →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Project Two</h3>
+                        <span class="project-tag">Web Development</span>
+                        <span class="project-tag">React</span>
+                    </div>
+                    <div class="project-body">
+                        <p>Developed a full-stack web application with real-time data visualization and interactive dashboards.</p>
+                        <a href="#" class="project-link">View Details →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Project Three</h3>
+                        <span class="project-tag">Computer Vision</span>
+                        <span class="project-tag">PyTorch</span>
+                    </div>
+                    <div class="project-body">
+                        <p>Implemented an object detection system for autonomous navigation using convolutional neural networks.</p>
+                        <a href="#" class="project-link">View Details →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Page -->
+        <div id="blog" class="page">
+            <div class="blog-redirect">
+                <h2>My Blog</h2>
+                <p>Discover my latest thoughts, tutorials, and insights on research, technology, and development.</p>
+                <a href="https://your-wordpress-blog.com" target="_blank" class="blog-button">Visit My Blog</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const pages = document.querySelectorAll('.page');
+
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pageId = btn.getAttribute('data-page');
+                
+                // Remove active class from all buttons and pages
+                navBtns.forEach(b => b.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding page
+                btn.classList.add('active');
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
