@@ -8,7 +8,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('IMG_20251008_161310.jpg') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
 }
 
@@ -389,5 +391,6 @@ footer p {
         font-size: 1.3rem;
     }
 }
+
 
 
